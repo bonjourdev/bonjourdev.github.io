@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bonjour | Roblox Developer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        roblox: '#00A2FF',
+                        accent: '#A855F7', // Violet plus vif
+                        dark: '#0B0F1A',
+                        card: '#161B2E',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0B0F1A; }
+        ::-webkit-scrollbar-thumb { background: #8B5CF6; border-radius: 4px; }
+        
+        .glass-nav { background: rgba(11, 15, 26, 0.85); backdrop-filter: blur(12px); }
+        
+        .text-gradient {
+            background: linear-gradient(135deg, #00A2FF 0%, #A855F7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .btn-gradient {
+            background: linear-gradient(135deg, #00A2FF 0%, #A855F7 100%);
+            transition: all 0.3s ease;
+        }
+        .btn-gradient:hover {
+            filter: brightness(1.1);
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .card-violet-glow:hover {
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.15);
+            border-color: #A855F7;
+        }
+
+        /* Animation pour le fond */
+        .bg-animate {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0; left: 0;
+            z-index: -1;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body class="bg-dark text-slate-300 font-sans selection:bg-accent selection:text-white">
+
+    <nav class="fixed w-full z-50 glass-nav border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <span class="text-2xl font-bold text-white tracking-tighter">
+                        Bonjour<span class="text-accent">.</span>
+                    </span>
+                </div>
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="#home" class="hover:text-accent transition text-sm font-medium">Home</a>
+                    <a href="https://bonjourdev.github.io/assets" class="hover:text-accent transition text-sm font-medium flex items-center gap-1">
+                        <i class="fa-solid fa-layer-group text-xs"></i> Assets
+                    </a>
+                    <a href="#about" class="hover:text-accent transition text-sm font-medium">About</a>
+                    <a href="https://dsc.gg/bjroff" target="_blank" class="bg-[#5865F2] hover:bg-opacity-80 text-white px-5 py-2 rounded-full text-sm font-bold transition">
+                        <i class="fa-brands fa-discord mr-2"></i>Discord
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section id="home" class="relative pt-32 pb-20 lg:pt-52 lg:pb-32">
+        <div class="bg-animate">
+            <div class="absolute top-[-10%] right-[10%] w-[500px] h-[500px] bg-accent/10 rounded-full blur-[120px]"></div>
+            <div class="absolute bottom-[0%] left-[5%] w-[400px] h-[400px] bg-roblox/10 rounded-full blur-[100px]"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="inline-flex items-center px-4 py-1.5 rounded-full border border-accent/30 bg-accent/5 mb-8">
+                <span class="text-xs font-bold text-accent uppercase tracking-widest">Active Developer</span>
+            </div>
+            <h1 class="text-6xl md:text-8xl font-black text-white mb-6 tracking-tight">
+                Bonjour<br>
+                <span class="text-gradient">Resources.</span>
+            </h1>
+            <p class="mt-4 max-w-2xl mx-auto text-lg text-slate-400 mb-12 leading-relaxed">
+                Empowering the Roblox community with <span class="text-white font-semibold">premium-grade scripts</span> for free. Clean code, no viruses, just pure performance.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-5 justify-center">
+                <a href="https://bonjourdev.github.io/assets" class="btn-gradient text-white font-bold py-4 px-10 rounded-xl shadow-xl">
+                    View Assets Library
+                </a>
+                <a href="https://dsc.gg/bjroff" target="_blank" class="border border-white/10 bg-white/5 hover:bg-white/10 text-white font-bold py-4 px-10 rounded-xl transition backdrop-blur-sm">
+                    Join Discord
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="featured" class="py-24 relative border-y border-white/5 bg-slate-900/20">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+                <div>
+                    <h2 class="text-4xl font-bold text-white mb-2">Latest Assets</h2>
+                    <p class="text-slate-500">Fast downloads via GitHub Raw API.</p>
+                </div>
+                <a href="https://bonjourdev.github.io/assets" class="text-accent hover:underline font-bold">See all 20+ assets →</a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-card border border-white/5 rounded-2xl p-8 card-violet-glow transition-all group">
+                    <div class="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center text-accent mb-6">
+                        <i class="fa-solid fa-bolt-lightning text-xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-3 group-hover:text-accent transition">Admin System</h3>
+                    <p class="text-slate-400 text-sm mb-8 leading-relaxed">
+                        A fully customizable admin panel with server-wide broadcasting and logging.
+                    </p>
+                    <a href="https://github.com/bonjourdev/website/raw/refs/heads/main/assets/AdminSystem.rbxm" class="w-full py-3 bg-white/5 hover:bg-accent rounded-lg text-white text-sm font-bold transition-colors text-center block">
+                        <i class="fa-solid fa-download mr-2"></i> Download .rbxm
+                    </a>
+                </div>
+
+                <div class="bg-card border border-white/5 rounded-2xl p-8 card-violet-glow transition-all group">
+                    <div class="w-12 h-12 bg-roblox/10 rounded-xl flex items-center justify-center text-roblox mb-6">
+                        <i class="fa-solid fa-database text-xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-3 group-hover:text-accent transition">Economy Pro</h3>
+                    <p class="text-slate-400 text-sm mb-8 leading-relaxed">
+                        Secure currency management with auto-save and leaderboard integration.
+                    </p>
+                    <a href="https://github.com/bonjourdev/website/raw/refs/heads/main/assets/EconomyPro.rbxm" class="w-full py-3 bg-white/5 hover:bg-accent rounded-lg text-white text-sm font-bold transition-colors text-center block">
+                        <i class="fa-solid fa-download mr-2"></i> Download .rbxm
+                    </a>
+                </div>
+
+                <div class="bg-card border border-white/5 rounded-2xl p-8 card-violet-glow transition-all group">
+                    <div class="w-12 h-12 bg-purple-500/10 rounded-xl flex items-center justify-center text-purple-400 mb-6">
+                        <i class="fa-solid fa-shield-virus text-xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-3 group-hover:text-accent transition">Anti-Cheat</h3>
+                    <p class="text-slate-400 text-sm mb-8 leading-relaxed">
+                        Detect fly, speed hacks, and basic remote exploitation instantly.
+                    </p>
+                    <a href="https://github.com/bonjourdev/website/raw/refs/heads/main/assets/AntiCheat.rbxm" class="w-full py-3 bg-white/5 hover:bg-accent rounded-lg text-white text-sm font-bold transition-colors text-center block">
+                        <i class="fa-solid fa-download mr-2"></i> Download .rbxm
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="py-24">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div class="order-2 lg:order-1">
+                    <div class="relative bg-[#0F121D] rounded-xl border border-white/10 shadow-2xl overflow-hidden font-mono text-xs md:text-sm">
+                        <div class="flex items-center px-4 py-3 bg-white/5 border-b border-white/5">
+                            <div class="flex space-x-2">
+                                <div class="w-3 h-3 rounded-full bg-red-500/50"></div>
+                                <div class="w-3 h-3 rounded-full bg-yellow-500/50"></div>
+                                <div class="w-3 h-3 rounded-full bg-green-500/50"></div>
+                            </div>
+                            <span class="ml-4 text-slate-500">about_me.lua</span>
+                        </div>
+                        <div class="p-8">
+                            <p><span class="text-accent">local</span> Developer = {</p>
+                            <p class="ml-4">Name = <span class="text-emerald-400">"Bonjour"</span>,</p>
+                            <p class="ml-4">Focus = <span class="text-emerald-400">"Open Source"</span>,</p>
+                            <p class="ml-4">Status = <span class="text-emerald-400">"Helping Creators"</span></p>
+                            <p>}</p>
+                            <p class="mt-4"><span class="text-slate-600">-- Verification of quality</span></p>
+                            <p><span class="text-accent">if</span> Developer.Status == <span class="text-emerald-400">"Helping Creators"</span> <span class="text-accent">then</span></p>
+                            <p class="ml-4 text-roblox font-bold">GiveAssetsForFree()</p>
+                            <p><span class="text-accent">end</span></p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="order-1 lg:order-2">
+                    <h2 class="text-4xl font-bold text-white mb-6 leading-tight">Driven by the passion <br>of <span class="text-accent">sharing.</span></h2>
+                    <p class="text-slate-400 mb-6 text-lg">
+                        Finding clean, professional-grade code shouldn't cost Robux. I've dedicated my time to creating a library where every developer, no matter their budget, can find the tools they need.
+                    </p>
+                    <div class="grid grid-cols-2 gap-6">
+                        <div class="p-4 rounded-xl bg-white/5 border border-white/5 hover:border-accent/20 transition">
+                            <h4 class="text-white font-bold mb-1">Optimized</h4>
+                            <p class="text-xs text-slate-500">Low memory usage and high FPS.</p>
+                        </div>
+                        <div class="p-4 rounded-xl bg-white/5 border border-white/5 hover:border-accent/20 transition">
+                            <h4 class="text-white font-bold mb-1">Secure</h4>
+                            <p class="text-xs text-slate-500">Tested against common exploits.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-12 border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-6">
+            <p class="text-slate-500 text-sm italic font-mono">
+                &gt; Built with <i class="fa-solid fa-heart text-accent"></i> by Bonjour
+            </p>
+            <div class="flex items-center space-x-6">
+                <a href="https://github.com/bonjourdev" class="text-slate-400 hover:text-white transition text-xl"><i class="fa-brands fa-github"></i></a>
+                <a href="https://dsc.gg/bjroff" class="text-slate-400 hover:text-accent transition text-xl"><i class="fa-brands fa-discord"></i></a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
