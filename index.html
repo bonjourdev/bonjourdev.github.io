@@ -11,7 +11,7 @@
 
     <script>
         tailwind.config = {
-            darkMode: 'media', // Active le mode automatique basé sur le système
+            darkMode: 'media',
             theme: {
                 extend: {
                     colors: {
@@ -23,334 +23,223 @@
                         cardLight: '#FFFFFF',
                     },
                     animation: {
-                        'pulse-slow': 'pulse 6s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'pulse-slow': 'pulse 6s infinite',
                         'float': 'float 3s ease-in-out infinite',
                         'twinkle': 'twinkle 3s ease-in-out infinite',
-                    },
-                    keyframes: {
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-15px)' },
-                        },
-                        twinkle: {
-                            '0%, 100%': { opacity: 0.1, transform: 'scale(1)' },
-                            '50%': { opacity: 0.6, transform: 'scale(1.5)' },
-                        }
+                        'neon-pulse': 'neon 1.5s ease-in-out infinite alternate',
                     }
                 }
             }
         }
     </script>
     <style>
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: #A855F7; border-radius: 4px; }
-        
-        /* Adaptative Navigation */
+        /* Loader styles */
+        #loader {
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.8s ease, visibility 0.8s;
+        }
+
+        .neon-text {
+            font-size: 4rem;
+            font-weight: 900;
+            letter-spacing: -2px;
+            filter: drop-shadow(0 0 10px rgba(168, 85, 247, 0.8));
+        }
+
+        @keyframes neon {
+            from { opacity: 0.8; filter: drop-shadow(0 0 10px rgba(168, 85, 247, 0.8)); }
+            to { opacity: 1; filter: drop-shadow(0 0 25px rgba(168, 85, 247, 1)); }
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-thumb { background: #A855F7; border-radius: 10px; }
+
         .glass-nav { 
             background: rgba(248, 250, 252, 0.8); 
             backdrop-filter: blur(12px); 
+            -webkit-backdrop-filter: blur(12px);
         }
         @media (prefers-color-scheme: dark) {
             .glass-nav { background: rgba(11, 15, 26, 0.8); }
         }
-        
+
         .text-gradient {
             background: linear-gradient(135deg, #00A2FF 0%, #A855F7 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-size: 200% 200%;
-            animation: gradientMove 4s ease infinite;
-        }
-
-        @keyframes gradientMove {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .btn-gradient {
-            background: linear-gradient(135deg, #00A2FF 0%, #A855F7 100%);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        .btn-gradient:hover {
-            box-shadow: 0 0 30px rgba(168, 85, 247, 0.5);
-            transform: scale(1.05) translateY(-3px);
         }
 
         .card-violet-glow {
-            transition: transform 0.2s ease-out, box-shadow 0.2s ease-out, border-color 0.2s ease;
-            transform-style: preserve-3d;
-        }
-        .card-violet-glow:hover {
-            box-shadow: 0 20px 40px -15px rgba(168, 85, 247, 0.2);
-            border-color: rgba(168, 85, 247, 0.4);
-        }
-
-        .bg-blob {
-            filter: blur(80px);
-            opacity: 0.15;
-            z-index: -1;
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+            will-change: transform;
         }
 
         #cursor-glow {
-            width: 800px;
-            height: 800px;
-            background: radial-gradient(circle, rgba(168, 85, 247, 0.08) 0%, rgba(0,0,0,0) 70%);
-            position: fixed;
-            pointer-events: none;
-            z-index: 0;
+            width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(168, 85, 247, 0.08) 0%, transparent 70%);
+            position: fixed; pointer-events: none; z-index: 0;
             transform: translate(-50%, -50%);
             border-radius: 50%;
+            display: none; /* Hidden by default, shown on move */
         }
 
-        .particle {
-            position: fixed;
-            background: currentColor;
-            border-radius: 2px;
-            pointer-events: none;
-            z-index: -1;
+        @media (max-width: 768px) {
+            .neon-text { font-size: 2.5rem; }
+            #cursor-glow { width: 300px; height: 300px; }
         }
     </style>
 </head>
-<body class="bg-light dark:bg-dark text-slate-600 dark:text-slate-300 font-sans selection:bg-accent selection:text-white overflow-x-hidden transition-colors duration-500">
+<body class="bg-light dark:bg-dark text-slate-600 dark:text-slate-300 font-sans selection:bg-accent selection:text-white overflow-x-hidden transition-colors duration-500 opacity-0" id="body-content">
+
+    <div id="loader" class="bg-light dark:bg-dark">
+        <h1 class="neon-text text-slate-900 dark:text-white animate-neon-pulse">
+            Bonjour<span class="text-accent">.</span>
+        </h1>
+    </div>
 
     <div id="cursor-glow"></div>
     <div id="particles-container"></div>
 
     <nav class="fixed w-full z-50 glass-nav border-b border-black/5 dark:border-white/5">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16">
-                <div class="flex items-center">
-                    <span class="text-2xl font-bold text-slate-900 dark:text-white tracking-tighter">
-                        Bonjour<span class="text-accent">.</span>
-                    </span>
-                </div>
-                <div class="hidden md:flex items-center space-x-8">
-                    <a href="#home" class="hover:text-accent transition text-sm font-medium">Home</a>
-                    <a href="#assets" class="hover:text-accent transition text-sm font-medium">Assets</a>
-                    <a href="#about" class="hover:text-accent transition text-sm font-medium">About</a>
-                    <a href="https://dsc.gg/bjr" target="_blank" class="bg-[#5865F2] hover:shadow-[0_0_20px_rgba(88,101,242,0.5)] text-white px-5 py-2 rounded-full text-sm font-bold transition-all hover:-translate-y-1">
-                        <i class="fa-brands fa-discord mr-2"></i>Discord
-                    </a>
-                </div>
+        <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+            <span class="text-2xl font-bold text-slate-900 dark:text-white tracking-tighter">
+                Bonjour<span class="text-accent">.</span>
+            </span>
+            <div class="flex items-center space-x-4 md:space-x-8">
+                <a href="#assets" class="hover:text-accent transition text-sm font-medium hidden sm:block">Assets</a>
+                <a href="https://dsc.gg/bjr" target="_blank" class="bg-[#5865F2] text-white px-5 py-2 rounded-full text-xs md:text-sm font-bold transition-transform active:scale-95">
+                    <i class="fa-brands fa-discord mr-2"></i>Discord
+                </a>
             </div>
         </div>
     </nav>
 
-    <section id="home" class="relative pt-32 pb-20 lg:pt-52 lg:pb-32 flex items-center justify-center min-h-screen">
-        <div class="absolute top-0 w-full h-full overflow-hidden pointer-events-none">
-            <div id="blob-1" class="absolute top-1/4 left-1/4 w-96 h-96 bg-roblox bg-blob animate-pulse-slow"></div>
-            <div id="blob-2" class="absolute top-1/3 right-1/4 w-[500px] h-[500px] bg-accent bg-blob animate-pulse-slow" style="animation-delay: 2s"></div>
-        </div>
-
-        <div class="max-w-7xl mx-auto px-4 text-center z-10" data-aos="zoom-out-up">
-            <div class="inline-flex items-center px-4 py-1.5 rounded-full border border-accent/30 bg-accent/5 mb-8 animate-float">
-                <span class="text-xs font-bold text-accent uppercase tracking-widest flex items-center gap-2">
-                    <span class="w-2 h-2 bg-accent rounded-full animate-ping"></span>
-                    Roblox Open Source Project
-                </span>
-            </div>
-            <h1 class="text-6xl md:text-8xl font-black text-slate-900 dark:text-white mb-6 tracking-tight">
-                Bonjour<br>
-                <span class="text-gradient">Resources.</span>
-            </h1>
-            <p class="mt-4 max-w-2xl mx-auto text-lg text-slate-500 dark:text-slate-400 mb-12 leading-relaxed">
-                Empowering the Roblox community with <span class="text-slate-900 dark:text-white font-semibold">enriched scripts</span> for free. High performance, clean code, and zero cost.
-            </p>
-            <div class="flex flex-col sm:flex-row gap-5 justify-center">
-                <a href="#assets" class="btn-gradient text-white font-bold py-4 px-10 rounded-xl shadow-xl">
-                    Explore Assets
-                </a>
-                <a href="https://dsc.gg/bjr" target="_blank" class="border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 text-slate-900 dark:text-white font-bold py-4 px-10 rounded-xl transition backdrop-blur-sm">
-                    Join Community
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <section id="assets" class="py-24 relative bg-slate-500/5">
-        <div class="max-w-7xl mx-auto px-4">
-            <div class="text-center mb-16" data-aos="fade-down">
-                <h2 class="text-4xl font-bold text-slate-900 dark:text-white mb-4">Available Assets</h2>
-                <div class="h-1 w-20 bg-accent mx-auto rounded-full"></div>
+    <main>
+        <section id="home" class="relative pt-32 pb-20 min-h-screen flex items-center justify-center">
+            <div class="absolute inset-0 overflow-hidden pointer-events-none">
+                <div id="blob-1" class="absolute top-1/4 left-1/4 w-64 h-64 bg-roblox/20 rounded-full blur-3xl animate-pulse-slow"></div>
+                <div id="blob-2" class="absolute bottom-1/4 right-1/4 w-80 h-80 bg-accent/20 rounded-full blur-3xl animate-pulse-slow"></div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <script>
-                    const assets = [
-                        { name: "BJDR", version: "2.0.0", desc: "Advanced global announcement.", icon: "fa-bullhorn" },
-                        { name: "BluredMenu", version: "1.0.0", desc: "Roblox menu with blur effects.", icon: "fa-window-restore" },
-                        { name: "ChatToDiscord", version: "1.0.0", desc: "Relay game chat to your Discord server.", icon: "fa-comments" },
-                        { name: "Loading Screen", version: "1.0.0", desc: "Smooth introduction for players.", icon: "fa-spinner" },
-                        { name: "Realistic Head-Camera", version: "1.0.0", desc: "Immersive avatar experience.", icon: "fa-video" },
-                        { name: "Topbar Donation", version: "1.0.0", desc: "Easy donation buttons for your game.", icon: "fa-circle-dollar-to-slot" },
-                        { name: "VisualFPS", version: "1.0.0", desc: "Clean HUD to display performance stats.", icon: "fa-gauge-high" },
-                        { name: "Whitelist System", version: "1.0.0", desc: "Secure access control for your game.", icon: "fa-shield-halved" }
-                    ];
-
-                    document.write(assets.map(asset => `
-                        <div class="asset-card bg-cardLight dark:bg-cardDark border border-black/5 dark:border-white/5 rounded-2xl p-6 card-violet-glow group shadow-sm dark:shadow-none" data-aos="fade-up">
-                            <div class="w-10 h-10 bg-accent/10 rounded-lg flex items-center justify-center text-accent mb-4 group-hover:bg-accent group-hover:text-white transition-all duration-500 group-hover:rotate-[360deg]">
-                                <i class="fa-solid ${asset.icon} text-lg"></i>
-                            </div>
-                            <h3 class="text-lg font-bold text-slate-900 dark:text-white">${asset.name}</h3>
-                            <p class="text-[10px] font-mono text-accent/60 mb-2 uppercase tracking-widest">${asset.version}</p>
-                            <p class="text-slate-500 dark:text-slate-500 text-xs mb-6 leading-relaxed">${asset.desc}</p>
-                            <a href="https://github.com/bonjourdev/website/raw/refs/heads/main/assets/${encodeURIComponent(asset.name)}.rbxm" 
-                               class="w-full py-2.5 bg-black/5 dark:bg-white/5 hover:bg-accent hover:text-white text-slate-600 dark:text-slate-300 text-xs font-bold rounded-lg transition-all text-center block overflow-hidden relative">
-                               <span class="relative z-10"><i class="fa-solid fa-download mr-2"></i> Download</span>
-                            </a>
-                        </div>
-                    `).join(''));
-                </script>
-            </div>
-        </div>
-    </section>
-
-    <section id="about" class="py-24 border-t border-black/5 dark:border-white/5 overflow-hidden">
-        <div class="max-w-7xl mx-auto px-4">
-            <div class="grid lg:grid-cols-2 gap-16 items-center">
-                <div class="order-2 lg:order-1" data-aos="fade-right">
-                    <div class="relative group">
-                        <div class="absolute -inset-1 bg-gradient-to-r from-roblox to-accent rounded-xl blur opacity-25 group-hover:opacity-60 transition duration-1000"></div>
-                        <div class="relative bg-white dark:bg-[#0F121D] rounded-xl border border-black/10 dark:border-white/10 shadow-2xl overflow-hidden font-mono text-xs md:text-sm">
-                            <div class="flex items-center px-4 py-3 bg-black/5 dark:bg-white/5 border-b border-black/5 dark:border-white/5">
-                                <div class="flex space-x-2">
-                                    <div class="w-3 h-3 rounded-full bg-red-500/50"></div>
-                                    <div class="w-3 h-3 rounded-full bg-yellow-500/50"></div>
-                                    <div class="w-3 h-3 rounded-full bg-green-500/50"></div>
-                                </div>
-                                <span class="ml-4 text-slate-400 dark:text-slate-500 text-xs tracking-widest uppercase">about_me.lua</span>
-                            </div>
-                            <div class="p-8">
-                                <p><span class="text-accent">local</span> Developer = <span class="text-emerald-500 dark:text-emerald-400">"Bonjour"</span></p>
-                                <p><span class="text-accent">local</span> Community = <span class="text-emerald-500 dark:text-emerald-400">"Roblox Studio"</span></p>
-                                <p class="mt-4 text-slate-400 dark:text-slate-600">-- Main Loop</p>
-                                <p><span class="text-accent">while</span> task.wait() <span class="text-accent">do</span></p>
-                                <p class="ml-4">HelpDevs(<span class="text-roblox">"Free Scripts"</span>)</p>
-                                <p class="ml-4">OptimizeCode(<span class="text-roblox">true</span>)</p>
-                                <p><span class="text-accent">end</span></p>
-                            </div>
-                        </div>
-                    </div>
+            <div class="max-w-7xl mx-auto px-4 text-center z-10" data-aos="zoom-out-up">
+                <div class="inline-flex items-center px-4 py-1.5 rounded-full border border-accent/30 bg-accent/5 mb-8">
+                    <span class="text-[10px] font-bold text-accent uppercase tracking-widest flex items-center gap-2">
+                        <span class="w-2 h-2 bg-accent rounded-full animate-ping"></span>
+                        Roblox Open Source
+                    </span>
                 </div>
-                
-                <div class="order-1 lg:order-2" data-aos="fade-left">
-                    <h2 class="text-4xl font-black text-slate-900 dark:text-white mb-6 leading-tight">Everything is <br><span class="text-gradient">Open Source.</span></h2>
-                    <p class="text-slate-500 dark:text-slate-400 mb-8 text-lg">
-                        Bonjour. is not just a repository, it's a commitment to quality. No robux needed, no gatekeeping. Just tools to help you build the next front-page game.
-                    </p>
-                    <div class="space-y-4">
-                        <div class="flex items-center gap-4 text-slate-900 dark:text-white font-semibold group cursor-default">
-                            <div class="w-6 h-6 rounded bg-accent/20 flex items-center justify-center text-accent group-hover:bg-accent group-hover:text-white group-hover:scale-110 transition-all"><i class="fa-solid fa-check text-[10px]"></i></div>
-                            Direct Downloads
-                        </div>
-                        <div class="flex items-center gap-4 text-slate-900 dark:text-white font-semibold group cursor-default">
-                            <div class="w-6 h-6 rounded bg-accent/20 flex items-center justify-center text-accent group-hover:bg-accent group-hover:text-white group-hover:scale-110 transition-all"><i class="fa-solid fa-check text-[10px]"></i></div>
-                            No Viruses / Clean Code
-                        </div>
-                        <div class="flex items-center gap-4 text-slate-900 dark:text-white font-semibold group cursor-default">
-                            <div class="w-6 h-6 rounded bg-accent/20 flex items-center justify-center text-accent group-hover:bg-accent group-hover:text-white group-hover:scale-110 transition-all"><i class="fa-solid fa-check text-[10px]"></i></div>
-                            Optimized for High Latency
-                        </div>
-                    </div>
+                <h1 class="text-5xl md:text-8xl font-black text-slate-900 dark:text-white mb-6 tracking-tight">
+                    Bonjour<br><span class="text-gradient">Resources.</span>
+                </h1>
+                <p class="mt-4 max-w-xl mx-auto text-base md:text-lg text-slate-500 dark:text-slate-400 mb-10 px-4">
+                    Scripts haute performance pour <span class="text-slate-900 dark:text-white font-semibold">Roblox Studio</span>. 
+                    Gratuit, propre et optimisé.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center px-6">
+                    <a href="#assets" class="bg-gradient-to-r from-roblox to-accent text-white font-bold py-4 px-10 rounded-xl shadow-lg active:scale-95 transition-transform">
+                        Voir les Assets
+                    </a>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <footer class="py-12 border-t border-black/5 dark:border-white/5 bg-slate-100 dark:bg-[#080B14]">
-        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-6">
-            <div>
-                <span class="text-xl font-bold text-slate-900 dark:text-white tracking-tighter">Bonjour<span class="text-accent">.</span></span>
-                <p class="text-slate-500 dark:text-slate-600 text-[10px] mt-1 font-mono uppercase tracking-widest">©2025 Bonjour. All rights reserved</p>
+        <section id="assets" class="py-20 bg-slate-500/5">
+            <div class="max-w-7xl mx-auto px-4">
+                <h2 class="text-3xl font-bold text-slate-900 dark:text-white text-center mb-12">Bibliothèque</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" id="asset-grid">
+                    </div>
             </div>
-            <div class="flex items-center space-x-6">
-                <a href="https://github.com/bonjourdev" target="_blank" class="text-slate-400 hover:text-accent transition text-xl hover:scale-125 hover:rotate-12"><i class="fa-brands fa-github"></i></a>
-                <a href="https://www.youtube.com/@offbonjour" target="_blank" class="text-slate-400 hover:text-[#FF0000] transition text-xl hover:scale-125"><i class="fa-brands fa-youtube"></i></a>
-                <a href="https://dsc.gg/bjr" target="_blank" class="text-slate-400 hover:text-accent transition text-xl hover:scale-125 hover:-rotate-12"><i class="fa-brands fa-discord"></i></a>
-            </div>
-        </div>
+        </section>
+    </main>
+
+    <footer class="py-10 border-t border-black/5 dark:border-white/5 text-center">
+        <p class="text-xs text-slate-500 font-mono uppercase tracking-widest">©2025 Bonjour. All rights reserved</p>
     </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({ duration: 800, easing: 'ease-out-back', once: true });
+        // Loader Logic
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const loader = document.getElementById('loader');
+                const body = document.getElementById('body-content');
+                loader.style.opacity = '0';
+                body.style.opacity = '1';
+                setTimeout(() => {
+                    loader.style.visibility = 'hidden';
+                    AOS.init({ duration: 800, once: true });
+                }, 800);
+            }, 1500); // Temps d'affichage du texte Bonjour.
+        });
 
+        // Assets Data
+        const assets = [
+            { name: "BJDR", icon: "fa-bullhorn", desc: "Global Announcement" },
+            { name: "BluredMenu", icon: "fa-window-restore", desc: "UI Blur Effect" },
+            { name: "ChatToDiscord", icon: "fa-comments", desc: "Discord Webhook" },
+            { name: "Loading Screen", icon: "fa-spinner", desc: "Custom Intro" },
+            { name: "Realistic Head", icon: "fa-video", desc: "Camera System" },
+            { name: "VisualFPS", icon: "fa-gauge-high", desc: "HUD Stats" }
+        ];
+
+        const grid = document.getElementById('asset-grid');
+        assets.forEach(asset => {
+            grid.innerHTML += `
+                <div class="asset-card bg-white dark:bg-cardDark border border-black/5 dark:border-white/5 p-6 rounded-2xl card-violet-glow shadow-sm" data-aos="fade-up">
+                    <div class="w-10 h-10 bg-accent/10 rounded-lg flex items-center justify-center text-accent mb-4">
+                        <i class="fa-solid ${asset.icon}"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-900 dark:text-white">${asset.name}</h3>
+                    <p class="text-xs text-slate-500 mt-2 mb-6">${asset.desc}</p>
+                    <button class="w-full py-2 bg-black/5 dark:bg-white/5 rounded-lg text-xs font-bold hover:bg-accent hover:text-white transition-colors">Download</button>
+                </div>
+            `;
+        });
+
+        // Universal Input (Mouse & Touch)
         const cursorGlow = document.getElementById('cursor-glow');
         const blobs = [document.getElementById('blob-1'), document.getElementById('blob-2')];
-        const cards = document.querySelectorAll('.asset-card');
+        const assetCards = document.getElementsByClassName('asset-card');
 
-        // Particle System
-        const particleContainer = document.getElementById('particles-container');
-        const particles = [];
-        const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        function handleMove(e) {
+            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
 
-        for (let i = 0; i < 40; i++) {
-            const p = document.createElement('div');
-            p.className = 'particle animate-twinkle text-slate-400 dark:text-white';
-            const size = Math.random() * 3 + 1;
-            p.style.width = `${size}px`;
-            p.style.height = `${size}px`;
-            
-            let x = Math.random() * window.innerWidth;
-            let y = Math.random() * window.innerHeight;
-            
-            p.style.left = `${x}px`;
-            p.style.top = `${y}px`;
-            p.style.animationDelay = `${Math.random() * 5}s`;
-            
-            particleContainer.appendChild(p);
-            particles.push({ 
-                el: p, 
-                x: x, 
-                y: y, 
-                velX: (Math.random() - 0.5) * 0.5, 
-                velY: (Math.random() - 0.5) * 0.5 
-            });
-        }
-
-        function updateParticles() {
-            particles.forEach(p => {
-                p.x += p.velX;
-                p.y += p.velY;
-                if (p.x < 0) p.x = window.innerWidth;
-                if (p.x > window.innerWidth) p.x = 0;
-                if (p.y < 0) p.y = window.innerHeight;
-                if (p.y > window.innerHeight) p.y = 0;
-                p.el.style.left = `${p.x}px`;
-                p.el.style.top = `${p.y}px`;
-            });
-            requestAnimationFrame(updateParticles);
-        }
-        updateParticles();
-
-        document.addEventListener('mousemove', (e) => {
-            const { clientX, clientY } = e;
+            // Update Glow
+            cursorGlow.style.display = 'block';
             cursorGlow.style.left = `${clientX}px`;
             cursorGlow.style.top = `${clientY}px`;
 
-            blobs.forEach((blob, index) => {
-                const speed = (index + 1) * 30;
+            // Parallax Blobs
+            blobs.forEach((blob, i) => {
+                const speed = (i + 1) * 40;
                 const x = (window.innerWidth / 2 - clientX) / speed;
                 const y = (window.innerHeight / 2 - clientY) / speed;
                 blob.style.transform = `translate(${x}px, ${y}px)`;
             });
 
-            cards.forEach(card => {
+            // Card Tilt (Only on Desktop for better UX, or light tilt on mobile)
+            Array.from(assetCards).forEach(card => {
                 const rect = card.getBoundingClientRect();
-                const x = clientX - rect.left;
-                const y = clientY - rect.top;
-                if (x > 0 && x < rect.width && y > 0 && y < rect.height) {
-                    const dx = x - rect.width / 2;
-                    const dy = y - rect.height / 2;
-                    card.style.transform = `perspective(1000px) rotateX(${-dy / 10}deg) rotateY(${dx / 10}deg) translateY(-8px)`;
+                if (clientX > rect.left && clientX < rect.right && clientY > rect.top && clientY < rect.bottom) {
+                    const x = clientX - rect.left - rect.width / 2;
+                    const y = clientY - rect.top - rect.height / 2;
+                    card.style.transform = `perspective(1000px) rotateX(${-y / 15}deg) rotateY(${x / 15}deg) scale(1.02)`;
                 } else {
                     card.style.transform = '';
                 }
             });
-        });
+        }
+
+        window.addEventListener('mousemove', handleMove);
+        window.addEventListener('touchmove', handleMove, { passive: true });
+
     </script>
 </body>
 </html>
