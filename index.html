@@ -44,7 +44,6 @@
             .glass-nav { background: rgba(11, 15, 26, 0.8); }
         }
 
-        /* Nouvelle animation : Zoom + Fondu Smooth */
         @keyframes smoothZoomFade {
             0% { transform: scale(0.8); opacity: 0; filter: blur(10px); }
             100% { transform: scale(1); opacity: 1; filter: blur(0); }
@@ -73,7 +72,6 @@
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        /* Effet 3D de base */
         .asset-card {
             transition: transform 0.15s ease-out, box-shadow 0.15s ease-out;
             transform-style: preserve-3d;
@@ -255,7 +253,7 @@
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // TRADUCTIONS
+        //-----------------------------------------------------TRANSLATIONS-----------------------------------------------------\\
         const translations = {
             en: {
                 "nav-home": "Home", "nav-assets": "Assets", "nav-about": "About",
@@ -266,7 +264,7 @@
                 "about-desc": "Bonjour. is not just a repository, it's a commitment to quality. No robux needed, no gatekeeping.",
                 "f1": "Direct Downloads", "f2": "No Viruses / Clean Code", "f3": "Optimized for High Latency",
                 "download": "Download",
-                assets: [
+                assets: [ //---------------------------ASSETS---------------------------\\
                     { name: "BJDR", desc: "Advanced global announcement." },
                     { name: "BluredMenu", desc: "Roblox menu with blur effects." },
                     { name: "ChatToDiscord", desc: "Relay game chat to Discord." },
@@ -286,7 +284,7 @@
                 "about-desc": "Bonjour. n'est pas qu'un répertoire, c'est un engagement envers la qualité. Pas besoin de Robux.",
                 "f1": "Téléchargements Directs", "f2": "Sans Virus / Code Propre", "f3": "Optimisé pour la latence",
                 "download": "Télécharger",
-                assets: [
+                assets: [ //---------------------------ASSETS---------------------------\\
                     { name: "BJDR", desc: "Annonces globales avancées." },
                     { name: "BluredMenu", desc: "Menu Roblox avec effets de flou." },
                     { name: "ChatToDiscord", desc: "Relais chat vers Discord." },
@@ -306,7 +304,7 @@
                 "about-desc": "Bonjour. no es solo un repositorio, es un compromiso con la calidad. Sin robux ni barreras.",
                 "f1": "Descargas Directas", "f2": "Sin Virus / Código Limpio", "f3": "Optimizado para latencia",
                 "download": "Descargar",
-                assets: [
+                assets: [ //---------------------------ASSETS---------------------------\\
                     { name: "BJDR", desc: "Anuncios globales avanzados." },
                     { name: "BluredMenu", desc: "Menú Roblox con efectos blur." },
                     { name: "ChatToDiscord", desc: "Relais de chat a Discord." },
@@ -326,7 +324,7 @@
                 "about-desc": "Bonjour. — это не просто репозиторий, это стремление к качеству. Без робуксов.",
                 "f1": "Прямая загрузка", "f2": "Без вирусов / Чистый код", "f3": "Оптимизировано для пинга",
                 "download": "Скачать",
-                assets: [
+                assets: [ //---------------------------ASSETS---------------------------\\
                     { name: "BJDR", desc: "Продвинутые объявления." },
                     { name: "BluredMenu", desc: "Меню Roblox с эффектом размытия." },
                     { name: "ChatToDiscord", desc: "Ретрансляция чата в Discord." },
@@ -370,7 +368,6 @@
             `).join('');
         }
 
-        // LOADER Logic
         window.addEventListener('DOMContentLoaded', () => {
             const loader = document.getElementById('loader');
             const loaderText = document.getElementById('loader-text');
@@ -387,16 +384,14 @@
                     document.body.classList.remove('loading');
                     AOS.init({ duration: 800, easing: 'ease-out-back', once: true });
                 }, 1000);
-            }, 3500); // Légèrement réduit pour un feeling plus nerveux
+            }, 3500);
         });
 
-        // PARALLAX, PARTICLES & 3D CARDS
         const cursorGlow = document.getElementById('cursor-glow');
         const blobs = [document.getElementById('blob-1'), document.getElementById('blob-2')];
         const particleContainer = document.getElementById('particles-container');
         const particles = [];
 
-        // Init Particles
         for (let i = 0; i < 40; i++) {
             const p = document.createElement('div');
             p.className = 'particle animate-twinkle text-slate-400 dark:text-white';
@@ -420,21 +415,17 @@
         }
         updateParticles();
 
-        // Mouse Move Event for Glow, Blobs and 3D Cards
         document.addEventListener('mousemove', (e) => {
             const { clientX, clientY } = e;
             
-            // Cursor Glow
             cursorGlow.style.left = `${clientX}px`;
             cursorGlow.style.top = `${clientY}px`;
             
-            // Background Blobs
             blobs.forEach((blob, index) => {
                 const speed = (index + 1) * 30;
                 blob.style.transform = `translate(${(window.innerWidth / 2 - clientX) / speed}px, ${(window.innerHeight / 2 - clientY) / speed}px)`;
             });
 
-            // 3D Tilt for Cards (Logic active)
             const cards = document.querySelectorAll('.asset-card');
             cards.forEach(card => {
                 const rect = card.getBoundingClientRect();
