@@ -26,11 +26,12 @@
                         'pulse-slow': 'pulse 6s cubic-bezier(0.4, 0, 0.6, 1) infinite',
                         'float': 'float 3s ease-in-out infinite',
                         'twinkle': 'twinkle 3s ease-in-out infinite',
+                        'spin-slow': 'spin 10s linear infinite',
                     },
                     keyframes: {
                         float: {
                             '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-15px)' },
+                            '50%': { transform: 'translateY(-20px)' },
                         },
                         twinkle: {
                             '0%, 100%': { opacity: 0.1, transform: 'scale(1)' },
@@ -53,17 +54,19 @@
         @media (prefers-color-scheme: dark) {
             .glass-nav { background: rgba(11, 15, 26, 0.8); }
         }
+
+        /* Animation de texte par lettres */
+        .letter {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(30px) rotateX(-90deg);
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .letter.active {
+            opacity: 1;
+            transform: translateY(0) rotateX(0deg);
+        }
         
-        /* Animation Néon */
-        .neon-text {
-            animation: neon-glow 2s ease-in-out infinite alternate;
-        }
-
-        @keyframes neon-glow {
-            from { text-shadow: 0 0 10px rgba(168, 85, 247, 0.2), 0 0 20px rgba(168, 85, 247, 0.2); }
-            to { text-shadow: 0 0 20px rgba(168, 85, 247, 0.6), 0 0 30px rgba(168, 85, 247, 0.4); }
-        }
-
         .text-gradient {
             background: linear-gradient(135deg, #00A2FF 0%, #A855F7 100%);
             -webkit-background-clip: text;
@@ -88,12 +91,7 @@
         }
 
         .card-violet-glow {
-            transition: transform 0.2s ease-out, box-shadow 0.2s ease-out, border-color 0.2s ease;
-            transform-style: preserve-3d;
-        }
-        .card-violet-glow:hover {
-            box-shadow: 0 20px 40px -15px rgba(168, 85, 247, 0.2);
-            border-color: rgba(168, 85, 247, 0.4);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease, border-color 0.4s ease;
         }
 
         .bg-blob {
@@ -105,7 +103,7 @@
         #cursor-glow {
             width: 800px;
             height: 800px;
-            background: radial-gradient(circle, rgba(168, 85, 247, 0.08) 0%, rgba(0,0,0,0) 70%);
+            background: radial-gradient(circle, rgba(168, 85, 247, 0.1) 0%, rgba(0,0,0,0) 70%);
             position: fixed;
             pointer-events: none;
             z-index: 0;
@@ -113,24 +111,24 @@
             border-radius: 50%;
         }
 
-        .particle {
-            position: fixed;
-            background: currentColor;
-            border-radius: 2px;
-            pointer-events: none;
-            z-index: -1;
+        .lang-dropdown {
+            display: none;
+            animation: fadeIn 0.2s ease-out;
         }
+        .lang-container:hover .lang-dropdown { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Masquer le scroll pendant l'animation */
         body.loading { overflow: hidden; }
     </style>
 </head>
 <body class="loading bg-light dark:bg-dark text-slate-600 dark:text-slate-300 font-sans selection:bg-accent selection:text-white overflow-x-hidden transition-colors duration-500">
 
-    <div id="loader" class="fixed inset-0 z-[100] flex items-center justify-center bg-white dark:bg-[#000000] transition-opacity duration-1000">
-        <h1 id="loader-text" class="text-6xl md:text-8xl font-black opacity-0 translate-y-4 transition-all duration-1000 neon-text text-slate-900 dark:text-white">
-            Bonjour<span class="text-accent">.</span>
-        </h1>
+    <div id="loader" class="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-white dark:bg-[#000000] transition-opacity duration-1000">
+        <div id="loader-content" class="text-6xl md:text-8xl font-black text-slate-900 dark:text-white mb-4">
+            </div>
+        <div class="w-48 h-[2px] bg-slate-200 dark:bg-white/10 relative overflow-hidden rounded-full">
+            <div id="loader-bar" class="absolute inset-0 bg-accent w-0 transition-all duration-[3000ms] ease-out"></div>
+        </div>
     </div>
 
     <div id="cursor-glow"></div>
@@ -139,11 +137,31 @@
     <nav class="fixed w-full z-50 glass-nav border-b border-black/5 dark:border-white/5">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <div class="flex items-center">
+                <div class="flex items-center gap-8">
                     <span class="text-2xl font-bold text-slate-900 dark:text-white tracking-tighter">
                         Bonjour<span class="text-accent">.</span>
                     </span>
+                    
+                    <div class="hidden lg:block relative lang-container">
+                        <button class="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-slate-500 hover:text-accent transition">
+                            <img src="https://flagcdn.com/us.svg" class="w-4 h-3 rounded-sm" alt="en"> EN <i class="fa-solid fa-chevron-down text-[8px]"></i>
+                        </button>
+                        <div class="absolute top-full left-0 mt-2 w-48 bg-white dark:bg-cardDark border border-black/5 dark:border-white/10 rounded-xl shadow-2xl p-2 lang-dropdown backdrop-blur-xl">
+                            <div class="grid grid-cols-1 gap-1">
+                                <a href="#" class="flex items-center gap-3 p-2 hover:bg-accent/10 rounded-lg transition text-xs font-medium"><img src="https://flagcdn.com/us.svg" class="w-4"> English</a>
+                                <a href="#" class="flex items-center gap-3 p-2 hover:bg-accent/10 rounded-lg transition text-xs font-medium"><img src="https://flagcdn.com/fr.svg" class="w-4"> Français</a>
+                                <a href="#" class="flex items-center gap-3 p-2 hover:bg-accent/10 rounded-lg transition text-xs font-medium"><img src="https://flagcdn.com/it.svg" class="w-4"> Italiano</a>
+                                <a href="#" class="flex items-center gap-3 p-2 hover:bg-accent/10 rounded-lg transition text-xs font-medium"><img src="https://flagcdn.com/de.svg" class="w-4"> Deutsch</a>
+                                <a href="#" class="flex items-center gap-3 p-2 hover:bg-accent/10 rounded-lg transition text-xs font-medium"><img src="https://flagcdn.com/es.svg" class="w-4"> Español</a>
+                                <a href="#" class="flex items-center gap-3 p-2 hover:bg-accent/10 rounded-lg transition text-xs font-medium"><img src="https://flagcdn.com/ru.svg" class="w-4"> Pусский</a>
+                                <a href="#" class="flex items-center gap-3 p-2 hover:bg-accent/10 rounded-lg transition text-xs font-medium"><img src="https://flagcdn.com/cn.svg" class="w-4"> 中文</a>
+                                <a href="#" class="flex items-center gap-3 p-2 hover:bg-accent/10 rounded-lg transition text-xs font-medium"><img src="https://flagcdn.com/kr.svg" class="w-4"> 한국어</a>
+                                <a href="#" class="flex items-center gap-3 p-2 hover:bg-accent/10 rounded-lg transition text-xs font-medium"><img src="https://flagcdn.com/jp.svg" class="w-4"> 日本語</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                
                 <div class="hidden md:flex items-center space-x-8">
                     <a href="#home" class="hover:text-accent transition text-sm font-medium">Home</a>
                     <a href="#assets" class="hover:text-accent transition text-sm font-medium">Assets</a>
@@ -296,70 +314,42 @@
     <script>
         window.addEventListener('DOMContentLoaded', () => {
             const loader = document.getElementById('loader');
-            const loaderText = document.getElementById('loader-text');
+            const loaderContent = document.getElementById('loader-content');
+            const loaderBar = document.getElementById('loader-bar');
+            const text = "Bonjour.";
+            
+            text.split('').forEach((char, i) => {
+                const span = document.createElement('span');
+                span.textContent = char;
+                span.className = 'letter';
+                if (char === '.') span.classList.add('text-accent');
+                loaderContent.appendChild(span);
+            });
 
+            const letters = document.querySelectorAll('.letter');
+            
             setTimeout(() => {
-                loaderText.classList.remove('opacity-0', 'translate-y-4');
-                loaderText.classList.add('opacity-100', 'translate-y-0');
-            }, 300);
-
-            setTimeout(() => {
-                loaderText.classList.add('opacity-0');
-                setTimeout(() => {
-                    loader.classList.add('opacity-0');
+                loaderBar.style.width = '100%';
+                letters.forEach((letter, i) => {
                     setTimeout(() => {
-                        loader.style.display = 'none';
-                        document.body.classList.remove('loading');
-                        AOS.init({ duration: 800, easing: 'ease-out-back', once: true });
-                    }, 1000);
-                }, 800);
-            }, 2500);
+                        letter.classList.add('active');
+                    }, i * 150);
+                });
+            }, 500);
+
+            setTimeout(() => {
+                loader.classList.add('opacity-0');
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                    document.body.classList.remove('loading');
+                    AOS.init({ duration: 1000, easing: 'ease-out-quint', once: true });
+                }, 1000);
+            }, 4000);
         });
 
         const cursorGlow = document.getElementById('cursor-glow');
         const blobs = [document.getElementById('blob-1'), document.getElementById('blob-2')];
         const cards = document.querySelectorAll('.asset-card');
-        const particleContainer = document.getElementById('particles-container');
-        const particles = [];
-
-        for (let i = 0; i < 40; i++) {
-            const p = document.createElement('div');
-            p.className = 'particle animate-twinkle text-slate-400 dark:text-white';
-            const size = Math.random() * 3 + 1;
-            p.style.width = `${size}px`;
-            p.style.height = `${size}px`;
-            
-            let x = Math.random() * window.innerWidth;
-            let y = Math.random() * window.innerHeight;
-            
-            p.style.left = `${x}px`;
-            p.style.top = `${y}px`;
-            p.style.animationDelay = `${Math.random() * 5}s`;
-            
-            particleContainer.appendChild(p);
-            particles.push({ 
-                el: p, 
-                x: x, 
-                y: y, 
-                velX: (Math.random() - 0.5) * 0.5, 
-                velY: (Math.random() - 0.5) * 0.5 
-            });
-        }
-
-        function updateParticles() {
-            particles.forEach(p => {
-                p.x += p.velX;
-                p.y += p.velY;
-                if (p.x < 0) p.x = window.innerWidth;
-                if (p.x > window.innerWidth) p.x = 0;
-                if (p.y < 0) p.y = window.innerHeight;
-                if (p.y > window.innerHeight) p.y = 0;
-                p.el.style.left = `${p.x}px`;
-                p.el.style.top = `${p.y}px`;
-            });
-            requestAnimationFrame(updateParticles);
-        }
-        updateParticles();
 
         document.addEventListener('mousemove', (e) => {
             const { clientX, clientY } = e;
@@ -367,10 +357,10 @@
             cursorGlow.style.top = `${clientY}px`;
 
             blobs.forEach((blob, index) => {
-                const speed = (index + 1) * 30;
+                const speed = (index + 1) * 20;
                 const x = (window.innerWidth / 2 - clientX) / speed;
                 const y = (window.innerHeight / 2 - clientY) / speed;
-                blob.style.transform = `translate(${x}px, ${y}px)`;
+                blob.style.transform = `translate(${x}px, ${y}px) rotate(${clientX / 50}deg)`;
             });
 
             cards.forEach(card => {
@@ -380,12 +370,43 @@
                 if (x > 0 && x < rect.width && y > 0 && y < rect.height) {
                     const dx = x - rect.width / 2;
                     const dy = y - rect.height / 2;
-                    card.style.transform = `perspective(1000px) rotateX(${-dy / 10}deg) rotateY(${dx / 10}deg) translateY(-8px)`;
+                    card.style.transform = `perspective(1000px) rotateX(${-dy / 8}deg) rotateY(${dx / 8}deg) scale3d(1.05, 1.05, 1.05)`;
                 } else {
                     card.style.transform = '';
                 }
             });
         });
+
+        const particleContainer = document.getElementById('particles-container');
+        const particles = [];
+        for (let i = 0; i < 50; i++) {
+            const p = document.createElement('div');
+            p.className = 'particle animate-twinkle text-slate-400 dark:text-white';
+            const size = Math.random() * 4 + 1;
+            p.style.width = `${size}px`;
+            p.style.height = `${size}px`;
+            let x = Math.random() * window.innerWidth;
+            let y = Math.random() * window.innerHeight;
+            p.style.left = `${x}px`;
+            p.style.top = `${y}px`;
+            p.style.animationDelay = `${Math.random() * 5}s`;
+            particleContainer.appendChild(p);
+            particles.push({ el: p, x, y, vx: (Math.random() - 0.5) * 0.8, vy: (Math.random() - 0.5) * 0.8 });
+        }
+
+        function animateParticles() {
+            particles.forEach(p => {
+                p.x += p.vx; p.y += p.vy;
+                if (p.x < 0) p.x = window.innerWidth;
+                if (p.x > window.innerWidth) p.x = 0;
+                if (p.y < 0) p.y = window.innerHeight;
+                if (p.y > window.innerHeight) p.y = 0;
+                p.el.style.left = `${p.x}px`;
+                p.el.style.top = `${p.y}px`;
+            });
+            requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
     </script>
 </body>
 </html>
