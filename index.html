@@ -137,9 +137,35 @@
                             <span id="current-flag">🇺🇸</span> <span id="current-lang">English</span>
                             <i class="fa-solid fa-chevron-down text-[10px]"></i>
                         </button>
-                        <div class="lang-dropdown absolute top-full right-0 mt-2 w-40 bg-white dark:bg-cardDark border border-black/5 dark:border-white/10 rounded-xl shadow-xl overflow-hidden py-2">
-                            <button onclick="setLanguage('en')" class="w-full px-4 py-2 text-left hover:bg-accent/10 flex items-center gap-3 text-sm"><span>🇺🇸</span> English</button>
-                            <button onclick="setLanguage('fr')" class="w-full px-4 py-2 text-left hover:bg-accent/10 flex items-center gap-3 text-sm"><span>🇫🇷</span> Français</button>
+<div class="lang-dropdown absolute top-full right-0 mt-2 w-48 bg-white dark:bg-cardDark border border-black/5 dark:border-white/10 rounded-xl shadow-xl overflow-hidden py-2">
+    <button onclick="setLanguage('en')" class="w-full px-4 py-2 text-left hover:bg-accent/10 flex items-center gap-3 text-sm transition-colors">
+        <span class="text-base">🇺🇸</span> <span class="dark:text-slate-200">English</span>
+    </button>
+    <button onclick="setLanguage('fr')" class="w-full px-4 py-2 text-left hover:bg-accent/10 flex items-center gap-3 text-sm transition-colors">
+        <span class="text-base">🇫🇷</span> <span class="dark:text-slate-200">Français</span>
+    </button>
+    <button onclick="setLanguage('es')" class="w-full px-4 py-2 text-left hover:bg-accent/10 flex items-center gap-3 text-sm transition-colors">
+        <span class="text-base">🇪🇸</span> <span class="dark:text-slate-200">Español</span>
+    </button>
+    <button onclick="setLanguage('de')" class="w-full px-4 py-2 text-left hover:bg-accent/10 flex items-center gap-3 text-sm transition-colors">
+        <span class="text-base">🇩🇪</span> <span class="dark:text-slate-200">Deutsch</span>
+    </button>
+    <button onclick="setLanguage('it')" class="w-full px-4 py-2 text-left hover:bg-accent/10 flex items-center gap-3 text-sm transition-colors">
+        <span class="text-base">🇮🇹</span> <span class="dark:text-slate-200">Italiano</span>
+    </button>
+    <button onclick="setLanguage('ru')" class="w-full px-4 py-2 text-left hover:bg-accent/10 flex items-center gap-3 text-sm transition-colors">
+        <span class="text-base">🇷🇺</span> <span class="dark:text-slate-200">Русский</span>
+    </button>
+    <button onclick="setLanguage('zh')" class="w-full px-4 py-2 text-left hover:bg-accent/10 flex items-center gap-3 text-sm transition-colors">
+        <span class="text-base">🇨🇳</span> <span class="dark:text-slate-200">中文</span>
+    </button>
+    <button onclick="setLanguage('ja')" class="w-full px-4 py-2 text-left hover:bg-accent/10 flex items-center gap-3 text-sm transition-colors">
+        <span class="text-base">🇯🇵</span> <span class="dark:text-slate-200">日本語</span>
+    </button>
+    <button onclick="setLanguage('ko')" class="w-full px-4 py-2 text-left hover:bg-accent/10 flex items-center gap-3 text-sm transition-colors">
+        <span class="text-base">🇰🇷</span> <span class="dark:text-slate-200">한국어</span>
+    </button>
+</div>
                             </div>
                     </div>
 
@@ -310,7 +336,7 @@
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        //-----------------------------------------------------TRANSLATIONS & DATA-----------------------------------------------------\\
+//-----------------------------------------------------TRANSLATIONS & DATA-----------------------------------------------------\\
         
         // ICONS MAPPING FOR ASSETS
         const assetIcons = {
@@ -340,7 +366,166 @@
                     { name: "Whitelist System", desc: "Secure access control.", tags: ["Security", "System"], version: "1.0.0" }
                 ]
             },
-            
+            fr: {
+                "nav-home": "Accueil", "nav-assets": "Assets", "nav-about": "À propos",
+                "badge": "Projet Open Source Roblox", "hero-title": "Ressources.",
+                "hero-desc": "Propulser la communauté Roblox avec des scripts enrichis gratuitement. Performance, code propre et gratuit.",
+                "btn-explore": "Explorer les Assets", "btn-community": "Rejoindre la Communauté",
+                "assets-title": "Assets Disponibles", "about-title": "Tout est Open Source.",
+                "about-desc": "Bonjour. n'est pas qu'un répertoire, c'est un engagement envers la qualité. Pas besoin de Robux.",
+                "f1": "Téléchargements Directs", "f2": "Sans Virus / Code Propre", "f3": "Optimisé pour la latence",
+                "download": "Télécharger",
+                assets: [
+                    { name: "BJDR", desc: "Annonces globales avancées.", tags: ["System", "UI"], version: "2.0.0" },
+                    { name: "BluredMenu", desc: "Menu Roblox avec effets de flou.", tags: ["UI", "Design"], version: "1.0.0" },
+                    { name: "ChatToDiscord", desc: "Relais chat vers Discord.", tags: ["System", "Webhooks"], version: "1.0.0" },
+                    { name: "Loading Screen", desc: "Introduction fluide pour les joueurs.", tags: ["UI"], version: "1.0.0" },
+                    { name: "Realistic Head-Camera", desc: "Expérience immersive d'avatar.", tags: ["Camera", "Immersion"], version: "1.0.0" },
+                    { name: "Topbar Donation", desc: "Boutons de donation faciles.", tags: ["UI", "Economy"], version: "1.0.0" },
+                    { name: "VisualFPS", desc: "HUD de performance épuré.", tags: ["UI", "System"], version: "1.0.0" },
+                    { name: "Whitelist System", desc: "Contrôle d'accès sécurisé.", tags: ["Security", "System"], version: "1.0.0" }
+                ]
+            },
+            es: {
+                "nav-home": "Inicio", "nav-assets": "Recursos", "nav-about": "Sobre nosotros",
+                "badge": "Proyecto de código abierto Roblox", "hero-title": "Recursos.",
+                "hero-desc": "Empoderando a la comunidad de Roblox con scripts mejorados gratis. Alto rendimiento y código limpio.",
+                "btn-explore": "Explorar Recursos", "btn-community": "Unirse a la Comunidad",
+                "assets-title": "Recursos Disponibles", "about-title": "Todo es Código Abierto.",
+                "about-desc": "Bonjour. no es solo un repositorio, es un compromiso con la calidad. Sin robux ni barreras.",
+                "f1": "Descargas Directas", "f2": "Sin Virus / Código Limpio", "f3": "Optimizado para latencia",
+                "download": "Descargar",
+                assets: [
+                    { name: "BJDR", desc: "Anuncios globales avanzados.", tags: ["System", "UI"], version: "2.0.0" },
+                    { name: "BluredMenu", desc: "Menú Roblox con efectos blur.", tags: ["UI", "Design"], version: "1.0.0" },
+                    { name: "ChatToDiscord", desc: "Relais de chat a Discord.", tags: ["System", "Webhooks"], version: "1.0.0" },
+                    { name: "Loading Screen", desc: "Introducción fluida para jugadores.", tags: ["UI"], version: "1.0.0" },
+                    { name: "Realistic Head-Camera", desc: "Experiencia inmersiva.", tags: ["Camera", "Immersion"], version: "1.0.0" },
+                    { name: "Topbar Donation", desc: "Botones de donación fáciles.", tags: ["UI", "Economy"], version: "1.0.0" },
+                    { name: "VisualFPS", desc: "HUD de rendimiento limpio.", tags: ["UI", "System"], version: "1.0.0" },
+                    { name: "Whitelist System", desc: "Control de acceso seguro.", tags: ["Security", "System"], version: "1.0.0" }
+                ]
+            },
+            de: {
+                "nav-home": "Startseite", "nav-assets": "Ressourcen", "nav-about": "Über uns",
+                "badge": "Roblox Open-Source-Projekt", "hero-title": "Ressourcen.",
+                "hero-desc": "Kostenlose Premium-Skripte für die Roblox-Community. Hohe Leistung, sauberer Code und völlig kostenlos.",
+                "btn-explore": "Ressourcen entdecken", "btn-community": "Community beitreten",
+                "assets-title": "Verfügbare Skripte", "about-title": "Alles ist Open Source.",
+                "about-desc": "Bonjour. ist mehr als nur ein Repository, es ist ein Versprechen für Qualität. Ohne Robux, ohne Barrieren.",
+                "f1": "Direkt-Downloads", "f2": "Virenfrei / Sauberer Code", "f3": "Optimiert für hohe Latenz",
+                "download": "Herunterladen",
+                assets: [
+                    { name: "BJDR", desc: "Erweitertes globales Ankündigungssystem.", tags: ["System", "UI"], version: "2.0.0" },
+                    { name: "BluredMenu", desc: "Roblox-Menü mit Unschärfe-Effekten.", tags: ["UI", "Design"], version: "1.0.0" },
+                    { name: "ChatToDiscord", desc: "Spiel-Chat an Discord weiterleiten.", tags: ["System", "Webhooks"], version: "1.0.0" },
+                    { name: "Loading Screen", desc: "Flüssiger Ladebildschirm für Spieler.", tags: ["UI"], version: "1.0.0" },
+                    { name: "Realistic Head-Camera", desc: "Immersives Avatar-Erlebnis.", tags: ["Camera", "Immersion"], version: "1.0.0" },
+                    { name: "Topbar Donation", desc: "Einfache Spenden-Buttons.", tags: ["UI", "Economy"], version: "1.0.0" },
+                    { name: "VisualFPS", desc: "Schlankes Performance-HUD.", tags: ["UI", "System"], version: "1.0.0" },
+                    { name: "Whitelist System", desc: "Sichere Zugriffskontrolle.", tags: ["Security", "System"], version: "1.0.0" }
+                ]
+            },
+            it: {
+                "nav-home": "Home", "nav-assets": "Risorse", "nav-about": "Chi siamo",
+                "badge": "Progetto Open Source Roblox", "hero-title": "Risorse.",
+                "hero-desc": "Potenzia la community di Roblox con script gratuiti di alta qualità. Performance elevate e codice pulito.",
+                "btn-explore": "Esplora Risorse", "btn-community": "Unisciti alla Community",
+                "assets-title": "Risorse Disponibili", "about-title": "Tutto è Open Source.",
+                "about-desc": "Bonjour. non è solo una repository, è un impegno verso la qualità. Niente Robux, nessuna barriera.",
+                "f1": "Download Diretti", "f2": "Senza Virus / Codice Pulito", "f3": "Ottimizzato per la latenza",
+                "download": "Scarica",
+                assets: [
+                    { name: "BJDR", desc: "Sistema di annunci globali avanzato.", tags: ["System", "UI"], version: "2.0.0" },
+                    { name: "BluredMenu", desc: "Menu Roblox con effetti di sfocatura.", tags: ["UI", "Design"], version: "1.0.0" },
+                    { name: "ChatToDiscord", desc: "Invia la chat di gioco a Discord.", tags: ["System", "Webhooks"], version: "1.0.0" },
+                    { name: "Loading Screen", desc: "Schermata di caricamento fluida.", tags: ["UI"], version: "1.0.0" },
+                    { name: "Realistic Head-Camera", desc: "Esperienza avatar immersiva.", tags: ["Camera", "Immersion"], version: "1.0.0" },
+                    { name: "Topbar Donation", desc: "Semplici pulsanti per donazioni.", tags: ["UI", "Economy"], version: "1.0.0" },
+                    { name: "VisualFPS", desc: "HUD delle prestazioni pulito.", tags: ["UI", "System"], version: "1.0.0" },
+                    { name: "Whitelist System", desc: "Controllo degli accessi sicuro.", tags: ["Security", "System"], version: "1.0.0" }
+                ]
+            },
+            ja: {
+                "nav-home": "ホーム", "nav-assets": "スクリプト", "nav-about": "詳細",
+                "badge": "Roblox オープンソースプロジェクト", "hero-title": "リソース。",
+                "hero-desc": "Robloxコミュニティに高品質なスクリプトを無料で提供。高性能、クリーンなコード、完全無料。",
+                "btn-explore": "スクリプトを見る", "btn-community": "コミュニティに参加",
+                "assets-title": "利用可能なスクリプト", "about-title": "すべてがオープンソース。",
+                "about-desc": "Bonjour. は単なるリポジトリではなく、品質へのこだわりです。Robuxは不要、制限もありません。",
+                "f1": "直接ダウンロード", "f2": "ウイルスなし / 清潔なコード", "f3": "高レイテンシへの最適化",
+                "download": "ダウンロード",
+                assets: [
+                    { name: "BJDR", desc: "高度なグローバルアナウンスシステム。", tags: ["System", "UI"], version: "2.0.0" },
+                    { name: "BluredMenu", desc: "ブラー効果付きのUIメニュー。", tags: ["UI", "Design"], version: "1.0.0" },
+                    { name: "ChatToDiscord", desc: "ゲーム内チャットをDiscordに連携。", tags: ["System", "Webhooks"], version: "1.0.0" },
+                    { name: "Loading Screen", desc: "プレイヤー向けの滑らかなロード画面。", tags: ["UI"], version: "1.0.0" },
+                    { name: "Realistic Head-Camera", desc: "没入感のあるヘッドカメラ体験。", tags: ["Camera", "Immersion"], version: "1.0.0" },
+                    { name: "Topbar Donation", desc: "簡単な寄付ボタン。", tags: ["UI", "Economy"], version: "1.0.0" },
+                    { name: "VisualFPS", desc: "シンプルなパフォーマンスHUD。", tags: ["UI", "System"], version: "1.0.0" },
+                    { name: "Whitelist System", desc: "安全なホワイトリスト管理。", tags: ["Security", "System"], version: "1.0.0" }
+                ]
+            },
+            ko: {
+                "nav-home": "홈", "nav-assets": "스크립트", "nav-about": "정보",
+                "badge": "Roblox 오픈 소스 프로젝트", "hero-title": "리소스 센터.",
+                "hero-desc": "Roblox 커뮤니티를 위한 고성능 무료 스크립트. 깔끔한 코드와 최상의 최적화.",
+                "btn-explore": "스크립트 탐색", "btn-community": "커뮤니티 가입",
+                "assets-title": "사용 가능한 스크립트", "about-title": "모든 코드는 오픈 소스입니다.",
+                "about-desc": "Bonjour. 는 단순한 저장소가 아닌 품질에 대한 약속입니다. Robux나 다른 조건 없이 사용하세요.",
+                "f1": "직접 다운로드", "f2": "바이러스 없음 / 클린 코드", "f3": "높은 핑 환경 최적화",
+                "download": "다운로드",
+                assets: [
+                    { name: "BJDR", desc: "고급 글로벌 공지 시스템.", tags: ["System", "UI"], version: "2.0.0" },
+                    { name: "BluredMenu", desc: "블러 효과가 적용된 UI 메뉴.", tags: ["UI", "Design"], version: "1.0.0" },
+                    { name: "ChatToDiscord", desc: "게임 채팅을 Discord로 전달.", tags: ["System", "Webhooks"], version: "1.0.0" },
+                    { name: "Loading Screen", desc: "부드러운 플레이어 로딩 화면.", tags: ["UI"], version: "1.0.0" },
+                    { name: "Realistic Head-Camera", desc: "몰입형 헤드 카메라 경험.", tags: ["Camera", "Immersion"], version: "1.0.0" },
+                    { name: "Topbar Donation", desc: "간편한 후원 버튼.", tags: ["UI", "Economy"], version: "1.0.0" },
+                    { name: "VisualFPS", desc: "깔끔한 성능 표시 HUD.", tags: ["UI", "System"], version: "1.0.0" },
+                    { name: "Whitelist System", desc: "안전한 화이트리스트 시스템.", tags: ["Security", "System"], version: "1.0.0" }
+                ]
+            },
+            zh: {
+                "nav-home": "首页", "nav-assets": "脚本资源", "nav-about": "关于我们",
+                "badge": "Roblox 开源项目", "hero-title": "资源中心。",
+                "hero-desc": "为 Roblox 社区免费提供功能强大的脚本。高性能、代码简洁、零成本。",
+                "btn-explore": "探索脚本", "btn-community": "加入社区",
+                "assets-title": "可用资源", "about-title": "一切皆为开源。",
+                "about-desc": "Bonjour. 不仅仅是一个 GitHub 代码库，更代表着对品质的承诺。无需 Robux，零门槛使用。",
+                "f1": "直接下载", "f2": "无病毒 / 代码整洁", "f3": "高延迟环境优化",
+                "download": "下载",
+                assets: [
+                    { name: "BJDR", desc: "高级全局公告系统。", tags: ["System", "UI"], version: "2.0.0" },
+                    { name: "BluredMenu", desc: "带有模糊特效的 UI 菜单。", tags: ["UI", "Design"], version: "1.0.0" },
+                    { name: "ChatToDiscord", desc: "将游戏聊天同步至 Discord。", tags: ["System", "Webhooks"], version: "1.0.0" },
+                    { name: "Loading Screen", desc: "流畅的玩家加载界面。", tags: ["UI"], version: "1.0.0" },
+                    { name: "Realistic Head-Camera", desc: "沉浸式头部跟随摄像机。", tags: ["Camera", "Immersion"], version: "1.0.0" },
+                    { name: "Topbar Donation", desc: "顶栏快捷捐赠按钮。", tags: ["UI", "Economy"], version: "1.0.0" },
+                    { name: "VisualFPS", desc: "简洁的性能显示 HUD。", tags: ["UI", "System"], version: "1.0.0" },
+                    { name: "Whitelist System", desc: "安全的白名单访问控制。", tags: ["Security", "System"], version: "1.0.0" }
+                ]
+            },
+            ru: {
+                "nav-home": "Главная", "nav-assets": "Ресурсы", "nav-about": "О нас",
+                "badge": "Open Source проект Roblox", "hero-title": "Ресурсы.",
+                "hero-desc": "Развитие сообщества Roblox с помощью бесплатных скриптов. Высокая производительность и чистый код.",
+                "btn-explore": "Исследовать ресурсы", "btn-community": "Присоединиться",
+                "assets-title": "Доступные ресурсы", "about-title": "Всё в открытом доступе.",
+                "about-desc": "Bonjour. — это не просто репозиторий, это стремление к качеству. Без робуксов.",
+                "f1": "Прямая загрузка", "f2": "Без вирусов / Чистый код", "f3": "Оптимизировано для пинга",
+                "download": "Скачать",
+                assets: [
+                    { name: "BJDR", desc: "Продвинутые объявления.", tags: ["System", "UI"], version: "2.0.0" },
+                    { name: "BluredMenu", desc: "Меню Roblox с эффектом размытия.", tags: ["UI", "Design"], version: "1.0.0" },
+                    { name: "ChatToDiscord", desc: "Ретрансляция чата в Discord.", tags: ["System", "Webhooks"], version: "1.0.0" },
+                    { name: "Loading Screen", desc: "Плавная загрузка для игроков.", tags: ["UI"], version: "1.0.0" },
+                    { name: "Realistic Head-Camera", desc: "Иммерсивный опыт.", tags: ["Camera", "Immersion"], version: "1.0.0" },
+                    { name: "Topbar Donation", desc: "Простые кнопки пожертвований.", tags: ["UI", "Economy"], version: "1.0.0" },
+                    { name: "VisualFPS", desc: "Чистый HUD производительности.", tags: ["UI", "System"], version: "1.0.0" },
+                    { name: "Whitelist System", desc: "Защищенный контроль доступа.", tags: ["Security", "System"], version: "1.0.0" }
+                ]
+            }
         };
 
         const flags = { en: "🇺🇸", fr: "🇫🇷", es: "🇪🇸", ru: "🇷🇺", zh: "🇨🇳", de: "🇩🇪", it: "🇮🇹", ja: "🇯🇵", ko: "🇰🇷" };
