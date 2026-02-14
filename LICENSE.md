@@ -1,6 +1,6 @@
 # Custom Asset & Code License (CACL)
 
-Copyright (c) 2025 Bonjour.
+Copyright (c) 2026 Bonjour.
 
 By downloading, copying, or using the assets and code in this repository, you agree to the following terms and conditions:
 
