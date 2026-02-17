@@ -5,7 +5,7 @@
 
 ## 🫵 Getting Started
 
-1. **Browse:** Visit our [Official Website](https://bonjourdev.github.io).
+1. **Browse:** Visit our [Official Website](https://bjrdev.github.io/refined-resources/).
 2. **Download:** Download the assets wanted.
 3. **Import:** Drag and drop the files into Roblox Studio.
 4. **Configure:** Follow the comments and the guide inside the scripts to customize them to your needs.
@@ -18,6 +18,6 @@ Need help or want to suggest a new feature?
 
 ## 📜 License
 
-Distributed under the **CAC License**. See [`LICENSE.md`](https://github.com/bonjourdev/bonjourdev.github.io/blob/main/LICENSE.md) for more information.
+Distributed under the **CAC License**. See [`LICENSE.md`](https://github.com/bjrdev/refined-resources/blob/main/LICENSE.md) for more information.
 
 <sup><sup>Built with ❤️ by **BonjourDev**</sup></sup>
